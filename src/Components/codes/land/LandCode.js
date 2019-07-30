@@ -1,0 +1,62 @@
+import CodeShow from "../../CodeShow";
+import React from "react"
+import {connect} from "react-redux"
+function LandCode(props){
+ const landItems= 
+`import React from "react";
+import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBContainer } from
+"mdbreact";
+
+const CarouselPage = () => {
+  return (
+    <MDBContainer>
+      <MDBCarousel
+        activeItem={1}
+        length={3}
+        showControls={true}
+        showIndicators={false}
+        className="z-depth-1"
+      >
+        <MDBCarouselInner>
+          <MDBCarouselItem itemId="1">
+            <MDBView>
+              <img
+                className="d-block w-100"
+                src="h${props.land.first}"
+                alt="First slide"
+              />
+            </MDBView>
+          </MDBCarouselItem>
+          <MDBCarouselItem itemId="2">
+            <MDBView>
+              <img
+                className="d-block w-100"
+                src="${props.land.second}"
+                alt="Second slide"
+              />
+            </MDBView>
+          </MDBCarouselItem>
+          <MDBCarouselItem itemId="3">
+            <MDBView>
+              <img
+                className="d-block w-100"
+                src="${props.land.third}"
+                alt="Third slide"
+              />
+            </MDBView>
+          </MDBCarouselItem>
+        </MDBCarouselInner>
+      </MDBCarousel>
+    </MDBContainer>
+  );
+}
+
+export default CarouselPage;`
+return(
+   <CodeShow height="1200px" width="600px" code={landItems}/>
+)}
+
+const mapStateToProps=state=>({
+    land : state.landEdit
+})
+export default connect(mapStateToProps)(LandCode)

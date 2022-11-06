@@ -1,5 +1,4 @@
 import React from "react";
-import ReactP from "./Components/React"
 import {Provider} from "react-redux"
 import {createStore} from "redux"
 import genReducer from "./Components/reducers/genReducer"
@@ -11,20 +10,19 @@ import Home from "./Components/Home";
 import PrivateRoute from "./Components/PrivateRoute";
 import {Route} from "react-router"
 import { BrowserRouter as Router } from 'react-router-dom'
-import Logins from "./Components/Login";
-import config from "./fireBase"
-import SignUpView from "./Components/SignUpView";
 import HomeSign from "./Components/HomeSign";
 import Tracks from "./Components/Tracks";
 import Welcome from "./Components/Welcome";
 import Done from "./Components/Done";
+import {onAuthStateChanged, getAuth} from "firebase/auth";
+
 
 const store = createStore(genReducer,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-
+const auth=getAuth();
 export default class App extends React.Component {
   state = { loading: true, authenticated: false, user: null };
   componentWillMount() {
-    config.auth().onAuthStateChanged(user => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         this.setState({
           authenticated: true,
@@ -54,15 +52,14 @@ export default class App extends React.Component {
       <FooterModal/>
       <Router>
         <div>
-          <PrivateRoute
+          <Route
             exact
             path="/tracks"
             component={Tracks}
-            authenticated={authenticated}
           />
-          <Route exact path="/" component={Home} />
+          <Route exact path="/home" component={Home} />
           <Route exact path="/signup" component={HomeSign} />
-          <Route exact path="/welcome" component={Welcome} />
+          <Route exact path="/" component={Welcome} />
           <Route exact path="/react" component={Steper} />
           <Route exact path="/done" component={Done} />
 
